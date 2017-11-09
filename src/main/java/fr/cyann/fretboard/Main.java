@@ -20,10 +20,15 @@ public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("FretboardView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FretboardView.fxml"));
+        Parent root = loader.load();
+        FretboardControler controler = loader.getController();
+
         primaryStage.setTitle("Fretboard");
         primaryStage.setScene(new Scene(root, 1024, 728));
         primaryStage.show();
+        
+        controler.setData();
     }
 
     /**
