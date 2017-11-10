@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <tunes>
-   <tunes class="java.util.ArrayList">
+   <tunes>
       <tuneElement name="E Standard - guitare">
          <strings>
             <note>E</note>

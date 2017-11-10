@@ -46,10 +46,10 @@ public class Tunes {
 
     }
 
-    @ElementList
-    private List<TuneElement> tunes;
+    @ElementList(type = TuneElement.class)
+    private ArrayList<TuneElement> tunes;
 
-    public List<TuneElement> getTunes() {
+    public ArrayList<TuneElement> getTunes() {
         return tunes;
     }
 
