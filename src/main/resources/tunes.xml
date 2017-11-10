@@ -2,7 +2,7 @@
 
 <tunes>
    <tunes class="java.util.ArrayList">
-      <tuneElement name="Guitare E Standard">
+      <tuneElement name="E Standard - guitare">
          <strings>
             <note>E</note>
             <note>A</note>
@@ -10,6 +10,24 @@
             <note>G</note>
             <note>B</note>
             <note>E</note>
+         </strings>
+      </tuneElement>
+      <tuneElement name="Drop D - guitare">
+         <strings>
+            <note>D</note>
+            <note>A</note>
+            <note>D</note>
+            <note>G</note>
+            <note>B</note>
+            <note>E</note>
+         </strings>
+      </tuneElement>
+      <tuneElement name="E Standard - bass 4 strings">
+         <strings>
+            <note>E</note>
+            <note>A</note>
+            <note>D</note>
+            <note>G</note>
          </strings>
       </tuneElement>
    </tunes>

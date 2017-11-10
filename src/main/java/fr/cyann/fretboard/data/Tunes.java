@@ -39,6 +39,11 @@ public class Tunes {
             return strings;
         }
 
+        @Override
+        public String toString() {
+            return name;
+        }
+
     }
 
     @ElementList

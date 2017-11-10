@@ -14,15 +14,6 @@ if (!hasProperty('mainClass')) {
     ext.mainClass = 'fr.cyann.fretboard.Main'
 }
 
-sourceSets {
-  main {
-    resources {
-        srcDirs = ["src/main/java"]
-        includes = ["**/*.*xml"]
-    }
-  }
-}
-
 repositories {
     mavenCentral()
     // You may define additional repositories, or even remove "mavenCentral()".

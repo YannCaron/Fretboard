@@ -20,7 +20,7 @@ public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("FretboardView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/cyann/fretboard/FretboardView.fxml"));
         Parent root = loader.load();
         FretboardControler controler = loader.getController();
 
