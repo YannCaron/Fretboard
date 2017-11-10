@@ -7,11 +7,14 @@ package fr.cyann.fretboard;
 
 import fr.cyann.fretboard.controls.FretboardModel;
 import fr.cyann.fretboard.controls.FretboardModel.Note;
+import fr.cyann.fretboard.data.Modes;
 import fr.cyann.fretboard.data.Tunes;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
@@ -27,34 +30,42 @@ import org.simpleframework.xml.core.Persister;
 public class FretboardControler implements Initializable {
 
     @FXML
+    public ChoiceBox<Note> cbRootNote;
+
+    @FXML
     public ChoiceBox<Tunes.TuneElement> cbTune;
 
     @FXML
-    public ChoiceBox<Note> cbRootNote;
+    public ChoiceBox<Tunes.TuneElement> cbMode;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
 
-    public void setData() {
-        cbRootNote.getItems().addAll(FretboardModel.Note.values());
-        cbRootNote.getSelectionModel().selectFirst();
+    private static <T> void loadXMLTo(Class<T> cls, ChoiceBox cb, String path, Function<T, List> accessor) {
 
         try {
-            URL tunesLocation = this.getClass().getClassLoader().getResource("tunes.xml");
+            URL location = FretboardControler.class.getClassLoader().getResource(path);
 
             Serializer serializer = new Persister();
-            File source = new File(tunesLocation.toURI());
+            File source = new File(location.toURI());
 
-            Tunes tunes = serializer.read(Tunes.class, source);
-            cbTune.getItems().addAll(tunes.getTunes());
-            cbTune.getSelectionModel().selectFirst();
-            
+            T list = serializer.read(cls, source);
+            cb.getItems().addAll(accessor.apply(list));
+            cb.getSelectionModel().selectFirst();
+
         } catch (URISyntaxException ex) {
             Logger.getLogger(FretboardControler.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(FretboardControler.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void setData() {
+        cbRootNote.getItems().addAll(FretboardModel.Note.values());
+        cbRootNote.getSelectionModel().selectFirst();
+        loadXMLTo(Tunes.class, cbTune, "tunes.xml", (t) -> t.getTunes());
+        loadXMLTo(Modes.class, cbMode, "modes.xml", (m) -> m.getModes());
     }
 
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modes>
+   <modes>
+      <mode name="ionian" intervals="true, false, true, false, true, true, false, true, false, true, false, true"/>
+      <mode name="dorian" intervals="true, false, true, true, false, true, false, true, false, true, true, false"/>
+      <mode name="phrygian" intervals="true, true, false, true, false, true, false, true, true, false, true, false"/>
+      <mode name="lydian" intervals="true, false, true, false, true, false, true, true, false, true, false, true"/>
+      <mode name="mixolidian" intervals="true, false, true, false, true, true, false, true, false, true, true, false"/>
+      <mode name="aeolian" intervals="true, false, true, true, false, true, false, true, true, false, true, false"/>
+      <mode name="locrian" intervals="true, true, false, true, false, true, true, false, true, false, true, false"/>
+   </modes>
+</modes>
