@@ -29,6 +29,9 @@ public class FretboardControler implements Initializable {
     public void setData() {
         cbRootNote.getItems().addAll(FretboardModel.Note.values());
         cbRootNote.getSelectionModel().selectFirst();
+        
+        URL tunesLocation = this.getClass().getClassLoader().getResource("tunes.xml");
+        System.out.println(tunesLocation);
     }
 
 }

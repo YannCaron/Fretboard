@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tunes>
+   <tunes class="java.util.ArrayList">
+      <tuneElement name="Guitare E Standard">
+         <strings>
+            <note>E</note>
+            <note>A</note>
+            <note>D</note>
+            <note>G</note>
+            <note>B</note>
+            <note>E</note>
+         </strings>
+      </tuneElement>
+   </tunes>
+</tunes>
