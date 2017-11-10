@@ -44,7 +44,7 @@ public class Fretboard extends Pane {
         defaultModel.addString(FretboardModel.Note.G);
         defaultModel.addString(FretboardModel.Note.B);
         defaultModel.addString(FretboardModel.Note.E);
-        
+
         defaultModel.addNote(FretboardModel.Note.E, Color.RED);
         defaultModel.addNote(FretboardModel.Note.Gb, Color.BLACK);
         defaultModel.addNote(FretboardModel.Note.G, Color.BLACK);
@@ -54,11 +54,15 @@ public class Fretboard extends Pane {
         defaultModel.addNote(FretboardModel.Note.Db, Color.BLACK);
         defaultModel.addNote(FretboardModel.Note.D, Color.BLACK);
         model = defaultModel;
-        
+
     }
 
     public void setModel(FretboardModel model) {
         this.model = model;
+    }
+
+    public FretboardModel getModel() {
+        return model;
     }
 
     private void drawMark(GraphicsContext gc, int fret, int size) {
@@ -133,7 +137,7 @@ public class Fretboard extends Pane {
                     gc.fillOval(
                             H_BORDER + LEFT + FRET_SEPARATION / 2 - TIP_SIZE / 2 + (f - 1) * FRET_SEPARATION,
                             V_BORDER - TIP_SIZE / 2 + ds * STRING_SEPARATION,
-                            TIP_SIZE, TIP_SIZE);                    
+                            TIP_SIZE, TIP_SIZE);
                     gc.setStroke(model.getTipColor(s, f));
                     gc.strokeOval(
                             H_BORDER + LEFT + FRET_SEPARATION / 2 - TIP_SIZE / 2 + (f - 1) * FRET_SEPARATION,

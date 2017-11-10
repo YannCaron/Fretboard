@@ -5,6 +5,7 @@
  */
 package fr.cyann.fretboard;
 
+import fr.cyann.fretboard.controls.Fretboard;
 import fr.cyann.fretboard.controls.FretboardModel;
 import fr.cyann.fretboard.controls.FretboardModel.Note;
 import fr.cyann.fretboard.data.Modes;
@@ -38,6 +39,8 @@ public class FretboardControler implements Initializable {
     @FXML
     public ChoiceBox<Tunes.TuneElement> cbMode;
 
+    @FXML Fretboard fbFretboard;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
@@ -66,6 +69,9 @@ public class FretboardControler implements Initializable {
         cbRootNote.getSelectionModel().selectFirst();
         loadXMLTo(Tunes.class, cbTune, "tunes.xml", (t) -> t.getTunes());
         loadXMLTo(Modes.class, cbMode, "modes.xml", (m) -> m.getModes());
+        
+        // System.out.println(fbFretboard.getModel());
+        // TODO tobe continued
     }
 
 }

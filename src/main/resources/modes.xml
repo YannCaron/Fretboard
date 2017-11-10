@@ -8,5 +8,7 @@
       <mode name="mixolidian" intervals="true, false, true, false, true, true, false, true, false, true, true, false"/>
       <mode name="aeolian" intervals="true, false, true, true, false, true, false, true, true, false, true, false"/>
       <mode name="locrian" intervals="true, true, false, true, false, true, true, false, true, false, true, false"/>
+      <mode name="blues mixolidian" intervals="true, false, true, false, true, true, true true, false, true, true, false"/>
+      <mode name="blues dorian" intervals="true, false, true, true, false, true, true, true, false, true, true, false"/>
    </modes>
 </modes>
