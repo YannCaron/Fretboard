@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modes>
+   <modes>
+      <mode name="Ionian" intervals="true, false, true, false, true, true, false, true, false, true, false, true"/>
+      <mode name="Dorian" intervals="true, false, true, true, false, true, false, true, false, true, true, false"/>
+      <mode name="Phrygian" intervals="true, true, false, true, false, true, false, true, true, false, true, false"/>
+      <mode name="Lydian" intervals="true, false, true, false, true, false, true, true, false, true, false, true"/>
+      <mode name="Mixolidian" intervals="true, false, true, false, true, true, false, true, false, true, true, false"/>
+      <mode name="Aeolian" intervals="true, false, true, true, false, true, false, true, true, false, true, false"/>
+      <mode name="Locrian" intervals="true, true, false, true, false, true, true, false, true, false, true, false"/>
+      <mode name="Pentatonic major" intervals="true, false, true, false, true, false, false, true, false, true, false, false"/>
+      <mode name="Pentatonic minor" intervals="true, false, false, true, false, true, false, true, false, false, true, false"/>
+      <mode name="Blues major" intervals="true, false, true, true, true, false, false, true, false, true, false, false"/>
+      <mode name="Blues minor" intervals="true, false, false, true, false, true, true, true, false, false, true, false"/>
+      <mode name="Mixolidian blues" intervals="true, false, true, true, true, true, true, true, false, true, true, false"/>
+      <mode name="Dorian blues" intervals="true, false, true, true, false, true, true, true, false, true, true, false"/>
+   </modes>
+</modes>
