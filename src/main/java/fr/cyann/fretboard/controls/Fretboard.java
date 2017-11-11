@@ -37,24 +37,7 @@ public class Fretboard extends Pane {
         widthProperty().addListener(e -> canvas.setWidth(getWidth()));
         heightProperty().addListener(e -> canvas.setHeight(getHeight()));
 
-        DefaultFretboardModel defaultModel = new DefaultFretboardModel(24);
-        defaultModel.addString(FretboardModel.Note.E);
-        defaultModel.addString(FretboardModel.Note.A);
-        defaultModel.addString(FretboardModel.Note.D);
-        defaultModel.addString(FretboardModel.Note.G);
-        defaultModel.addString(FretboardModel.Note.B);
-        defaultModel.addString(FretboardModel.Note.E);
-
-        defaultModel.addNote(FretboardModel.Note.E, Color.RED);
-        defaultModel.addNote(FretboardModel.Note.Gb, Color.BLACK);
-        defaultModel.addNote(FretboardModel.Note.G, Color.BLACK);
-        defaultModel.addNote(FretboardModel.Note.A, Color.BLACK);
-        defaultModel.addNote(FretboardModel.Note.Bb, Color.BLUE);
-        defaultModel.addNote(FretboardModel.Note.B, Color.BLACK);
-        defaultModel.addNote(FretboardModel.Note.Db, Color.BLACK);
-        defaultModel.addNote(FretboardModel.Note.D, Color.BLACK);
-        model = defaultModel;
-
+        model = new EmptyFretboardModel();
     }
 
     public void setModel(FretboardModel model) {
@@ -72,6 +55,10 @@ public class Fretboard extends Pane {
 
     }
 
+    public void update() {
+        this.requestLayout();
+    }
+    
     @Override
     protected void layoutChildren() {
         super.layoutChildren();

@@ -23,16 +23,23 @@ import org.simpleframework.xml.core.Persister;
 public class Tunes {
 
     @Root
-    public static class TuneElement {
+    public static class Tune {
 
         @Attribute
         private String name;
+
+        @Attribute
+        private int fretcount;
 
         @ElementList(type = Note.class)
         private ArrayList<Note> strings;
 
         public String getName() {
             return name;
+        }
+
+        public int getFretcount() {
+            return fretcount;
         }
 
         public List<Note> getStrings() {
@@ -46,16 +53,16 @@ public class Tunes {
 
     }
 
-    @ElementList(type = TuneElement.class)
-    private ArrayList<TuneElement> tunes;
+    @ElementList(type = Tune.class)
+    private ArrayList<Tune> tunes;
 
-    public ArrayList<TuneElement> getTunes() {
+    public ArrayList<Tune> getTunes() {
         return tunes;
     }
 
     public static void main(String[] args) throws Exception {
         Tunes tunes = new Tunes();
-        TuneElement guitareEStandard = new TuneElement();
+        Tune guitareEStandard = new Tune();
         guitareEStandard.name = "Guitare E Standard";
         guitareEStandard.strings = new ArrayList<>();
         guitareEStandard.strings.add(Note.E);

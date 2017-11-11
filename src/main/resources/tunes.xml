@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tunes>
    <tunes>
-      <tuneElement name="E Standard - guitare">
+      <tuneElement name="E Standard - guitare" fretcount="24">
          <strings>
             <note>E</note>
             <note>A</note>
@@ -11,7 +11,7 @@
             <note>E</note>
          </strings>
       </tuneElement>
-      <tuneElement name="Drop D - guitare">
+      <tuneElement name="Drop D - guitare" fretcount="24">
          <strings>
             <note>D</note>
             <note>A</note>
@@ -21,7 +21,7 @@
             <note>E</note>
          </strings>
       </tuneElement>
-      <tuneElement name="E Standard - bass 4 strings">
+      <tuneElement name="E Standard - bass 4 strings" fretcount="24">
          <strings>
             <note>E</note>
             <note>A</note>
