@@ -25,7 +25,7 @@ public class Main extends Application {
         FretboardControler controler = loader.getController();
 
         primaryStage.setTitle("Fretboard");
-        primaryStage.setScene(new Scene(root, 1024, 728));
+        primaryStage.setScene(new Scene(root, 1024, 300));
         primaryStage.show();
         
         controler.setData();

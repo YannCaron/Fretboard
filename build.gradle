@@ -14,6 +14,10 @@ if (!hasProperty('mainClass')) {
     ext.mainClass = 'fr.cyann.fretboard.Main'
 }
 
+configurations {
+    releaseJars
+}
+
 repositories {
     mavenCentral()
     // You may define additional repositories, or even remove "mavenCentral()".
@@ -27,4 +31,17 @@ dependencies {
     //   http://www.gradle.org/docs/current/userguide/dependency_management.html#sec:how_to_declare_your_dependencies
     testCompile group: 'junit', name: 'junit', version: '4.10'
     compile group: 'org.simpleframework', name: 'simple-xml', version: '2.7.1'
+}
+
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    from('src/main/java') { include '**/*.xml' }
+    delete 'modes.xml', 'tunes.xml'
+    manifest {
+        attributes(
+            //'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+      
+      'Main-Class': 'fr.cyann.fretboard.Main'
+        )
+    }
 }

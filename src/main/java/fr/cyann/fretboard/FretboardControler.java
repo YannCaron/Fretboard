@@ -13,19 +13,31 @@ import fr.cyann.fretboard.data.Modes;
 import fr.cyann.fretboard.data.Modes.Mode;
 import fr.cyann.fretboard.data.Tunes;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javax.imageio.ImageIO;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
@@ -49,6 +61,9 @@ public class FretboardControler implements Initializable {
     public ChoiceBox<Modes.Mode> cbMode;
 
     @FXML
+    public Button btPng;
+
+    @FXML
     Fretboard fbFretboard;
 
     public FretboardControler() {
@@ -59,22 +74,37 @@ public class FretboardControler implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }
 
+    private static void copyRessourceToFile(String path) throws IOException {
+            InputStream fi = FretboardControler.class.getClassLoader().getResourceAsStream(path);
+            Files.copy(fi, Paths.get(path));
+    }
+    
+    private static File getLazyRessource(String path) throws IOException {
+        File file = new File(path);
+
+        if (!file.exists()) {
+            copyRessourceToFile(path);
+        }
+        return file;
+    }
+
     private static <T> void loadXMLTo(Class<T> cls, ChoiceBox cb, String path, Function<T, List> accessor) {
 
         try {
-            URL location = FretboardControler.class.getClassLoader().getResource(path);
-
             Serializer serializer = new Persister();
-            File source = new File(location.toURI());
 
-            T list = serializer.read(cls, source);
+            T list = serializer.read(cls, getLazyRessource(path));
             cb.getItems().addAll(accessor.apply(list));
             cb.getSelectionModel().selectFirst();
 
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(FretboardControler.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(FretboardControler.class.getName()).log(Level.SEVERE, null, ex);
+            
+            try {
+                copyRessourceToFile(path);
+            } catch (IOException ex1) {
+                Logger.getLogger(FretboardControler.class.getName()).log(Level.SEVERE, null, ex1);
+            }
         }
     }
 
@@ -84,30 +114,24 @@ public class FretboardControler implements Initializable {
         loadXMLTo(Tunes.class, cbTune, "tunes.xml", (t) -> t.getTunes());
         loadXMLTo(Modes.class, cbMode, "modes.xml", (m) -> m.getModes());
 
-        /*defaultModel.addString(FretboardModel.Note.E);
-
-        defaultModel.addNote(FretboardModel.Note.E, Color.RED);
-        defaultModel.addNote(FretboardModel.Note.Gb, Color.BLACK);
-        defaultModel.addNote(FretboardModel.Note.G, Color.BLACK);
-        defaultModel.addNote(FretboardModel.Note.A, Color.BLACK);
-        defaultModel.addNote(FretboardModel.Note.Bb, Color.BLUE);
-        defaultModel.addNote(FretboardModel.Note.B, Color.BLACK);
-        defaultModel.addNote(FretboardModel.Note.Db, Color.BLACK);
-        defaultModel.addNote(FretboardModel.Note.D, Color.BLACK);*/
         fbFretboard.setModel(fretboardModel);
 
         cbTune.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Tunes.Tune> observable, Tunes.Tune oldValue, Tunes.Tune newValue) -> {
             cbTune_onSelectedItemChanged(oldValue, newValue);
         });
-        
+
         cbRootNote.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Note> observable, Note oldValue, Note newValue) -> {
             cbRootNote_onSelectedItemChanged(oldValue, newValue);
         });
-        
+
         cbMode.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Mode> observable, Mode oldValue, Mode newValue) -> {
             cbMode_onSelectedItemChanged(oldValue, oldValue);
         });
-        
+
+        btPng.addEventHandler(MouseEvent.MOUSE_RELEASED, (MouseEvent event) -> {
+            btPng_onReleased(event);
+        });
+
         changeTune();
         changeScale();
     }
@@ -116,29 +140,44 @@ public class FretboardControler implements Initializable {
         changeTune();
         changeScale();
     }
-    
+
     protected void cbRootNote_onSelectedItemChanged(Note oldValue, Note rootNote) {
         changeScale();
     }
-    
+
     protected void cbMode_onSelectedItemChanged(Mode oldValue, Mode mode) {
         changeScale();
     }
 
+    protected void btPng_onReleased(MouseEvent event) {
+        WritableImage snapshot = fbFretboard.takeSnapshop();
+
+        String fileName = String.format("%s %s - %s.png",
+                cbRootNote.getSelectionModel().selectedItemProperty().getValue().toString(),
+                cbMode.getSelectionModel().selectedItemProperty().getValue().toString(),
+                cbTune.getSelectionModel().selectedItemProperty().getValue().toString());
+        File file = new File(fileName);
+
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", file);
+        } catch (Exception s) {
+        }
+    }
+
     private void changeTune() {
         Tunes.Tune tune = cbTune.getSelectionModel().getSelectedItem();
-        
+
         fretboardModel.setFretCount(tune.getFretcount());
         fretboardModel.getTunes().clear();
         fretboardModel.getTunes().addAll(tune.getStrings());
     }
-    
+
     private void changeScale() {
         Note rootNote = cbRootNote.getSelectionModel().getSelectedItem();
         Mode mode = cbMode.getSelectionModel().getSelectedItem();
 
         fretboardModel.clearNotes();
-        
+
         int interval = 0;
         for (boolean is : mode.getIntervals()) {
             if (is) {

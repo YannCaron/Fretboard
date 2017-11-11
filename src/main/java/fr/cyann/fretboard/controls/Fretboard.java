@@ -9,6 +9,7 @@ import com.sun.javafx.tk.FontMetrics;
 import com.sun.javafx.tk.Toolkit;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -48,24 +49,14 @@ public class Fretboard extends Pane {
         return model;
     }
 
-    private void drawMark(GraphicsContext gc, int fret, int size) {
+    private static void drawMark(GraphicsContext gc, int fretCount, int stringCount, int size) {
         gc.fillRect(
-                H_BORDER + LEFT + fret * FRET_SEPARATION - FRET_SEPARATION / 2 - size / 2, V_BORDER + 10,
-                size, (model.stringCount() - 1) * STRING_SEPARATION - 20);
+                H_BORDER + LEFT + fretCount * FRET_SEPARATION - FRET_SEPARATION / 2 - size / 2, V_BORDER + 10,
+                size, (stringCount - 1) * STRING_SEPARATION - 20);
 
     }
 
-    public void update() {
-        this.requestLayout();
-    }
-    
-    @Override
-    protected void layoutChildren() {
-        super.layoutChildren();
-
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        gc.clearRect(0, 0, getWidth(), getHeight());
+    private static void draw(GraphicsContext gc, FretboardModel model) {
 
         // draw head
         gc.setFont(new Font("Arial", FONT_HEIGHT));
@@ -90,23 +81,23 @@ public class Fretboard extends Pane {
         }
 
         // marks
-        drawMark(gc, 3, 15);
-        drawMark(gc, 5, 15);
-        drawMark(gc, 7, 15);
-        drawMark(gc, 9, 15);
-        drawMark(gc, 12, 25);
-        drawMark(gc, 15, 15);
-        drawMark(gc, 17, 15);
-        drawMark(gc, 19, 15);
-        drawMark(gc, 21, 15);
-        drawMark(gc, 24, 25);
+        drawMark(gc, 3, model.stringCount(), 15);
+        drawMark(gc, 5, model.stringCount(), 15);
+        drawMark(gc, 7, model.stringCount(), 15);
+        drawMark(gc, 9, model.stringCount(), 15);
+        drawMark(gc, 12, model.stringCount(), 25);
+        drawMark(gc, 15, model.stringCount(), 15);
+        drawMark(gc, 17, model.stringCount(), 15);
+        drawMark(gc, 19, model.stringCount(), 15);
+        drawMark(gc, 21, model.stringCount(), 15);
+        drawMark(gc, 24, model.stringCount(), 25);
 
         // strings
         gc.setFill(Color.BLACK);
         for (int s = 0; s < model.stringCount(); s++) {
             gc.fillRect(
                     H_BORDER + LEFT, V_BORDER + s * STRING_SEPARATION - 1,
-                    H_BORDER + (model.fretCount()) * FRET_SEPARATION, 2);
+                    V_BORDER + (model.fretCount()) * FRET_SEPARATION, 2);
         }
 
         gc.setFill(Color.WHITE);
@@ -133,8 +124,29 @@ public class Fretboard extends Pane {
                 }
             }
         }
+    }
 
-        // Paint your custom image here:
-        //gc.drawImage(someImage, 0, 0);
+    public void update() {
+        setWidth(H_BORDER * 4 + LEFT + model.fretCount() * FRET_SEPARATION);
+        setHeight(V_BORDER * 2 + (model.stringCount() - 1) * STRING_SEPARATION);
+        this.requestLayout();
+    }
+
+    @Override
+    protected void layoutChildren() {
+        super.layoutChildren();
+
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        gc.clearRect(0, 0, getWidth(), getHeight());
+        draw(gc, model);
+
+    }
+
+    public WritableImage takeSnapshop() {
+        update();
+        WritableImage snapshot = new WritableImage((int) getWidth(), (int) getHeight());
+        canvas.snapshot(null, snapshot);
+        return snapshot;
     }
 }
