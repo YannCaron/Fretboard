@@ -5,6 +5,7 @@
  */
 package fr.cyann.fretboard.controls;
 
+import fr.cyann.fretboard.data.Note;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

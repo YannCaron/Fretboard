@@ -18,7 +18,7 @@ import javafx.scene.text.Font;
  *
  * @author cyann
  */
-public class Fretboard extends Pane {
+public class Fretboard extends BoardPane<FretboardModel> {
 
     private static final int LEFT = 25;
     private static final int H_BORDER = 5;
@@ -29,24 +29,8 @@ public class Fretboard extends Pane {
     private static final int TIP_SIZE = 16;
     private static final int SMALL_TIP_SIZE = 10;
 
-    private final Canvas canvas;
-    private FretboardModel model;
-
     public Fretboard() {
-        canvas = new Canvas(getWidth(), getHeight());
-        getChildren().add(canvas);
-        widthProperty().addListener(e -> canvas.setWidth(getWidth()));
-        heightProperty().addListener(e -> canvas.setHeight(getHeight()));
-
-        model = new EmptyFretboardModel();
-    }
-
-    public void setModel(FretboardModel model) {
-        this.model = model;
-    }
-
-    public FretboardModel getModel() {
-        return model;
+        super();
     }
 
     private static void drawMark(GraphicsContext gc, int fretCount, int stringCount, int size) {
@@ -56,7 +40,23 @@ public class Fretboard extends Pane {
 
     }
 
-    private static void draw(GraphicsContext gc, FretboardModel model) {
+    @Override
+    FretboardModel createModel() {
+        return new EmptyFretboardModel();
+    }
+    
+    @Override
+    int calculateWidth() {
+        return H_BORDER * 4 + LEFT + getModel().fretCount() * FRET_SEPARATION;
+    }
+
+    @Override
+    int calculateHeight() {
+        return V_BORDER * 2 + (getModel().stringCount() - 1) * STRING_SEPARATION;
+    }
+
+    @Override
+    void draw(GraphicsContext gc, Canvas canvas, FretboardModel model) {
 
         // draw head
         gc.setFont(new Font("Arial", FONT_HEIGHT));
@@ -126,27 +126,4 @@ public class Fretboard extends Pane {
         }
     }
 
-    public void update() {
-        setWidth(H_BORDER * 4 + LEFT + model.fretCount() * FRET_SEPARATION);
-        setHeight(V_BORDER * 2 + (model.stringCount() - 1) * STRING_SEPARATION);
-        this.requestLayout();
-    }
-
-    @Override
-    protected void layoutChildren() {
-        super.layoutChildren();
-
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        gc.clearRect(0, 0, getWidth(), getHeight());
-        draw(gc, model);
-
-    }
-
-    public WritableImage takeSnapshop() {
-        update();
-        WritableImage snapshot = new WritableImage((int) getWidth(), (int) getHeight());
-        canvas.snapshot(null, snapshot);
-        return snapshot;
-    }
 }

@@ -6,9 +6,10 @@
 package fr.cyann.fretboard;
 
 import fr.cyann.fretboard.controls.DefaultFretboardModel;
+import fr.cyann.fretboard.controls.DefaultPianoboardModel;
 import fr.cyann.fretboard.controls.Fretboard;
-import fr.cyann.fretboard.controls.FretboardModel;
-import fr.cyann.fretboard.controls.FretboardModel.Note;
+import fr.cyann.fretboard.controls.Pianoboard;
+import fr.cyann.fretboard.data.Note;
 import fr.cyann.fretboard.data.Modes;
 import fr.cyann.fretboard.data.Modes.Mode;
 import fr.cyann.fretboard.data.Tunes;
@@ -17,7 +18,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
@@ -44,9 +44,11 @@ import org.simpleframework.xml.core.Persister;
  */
 public class FretboardControler implements Initializable {
 
+    private static final Logger LOGGER = Logger.getLogger(FretboardControler.class.getName());
     public static final int FRET_COUNT = 24;
 
     private final DefaultFretboardModel fretboardModel;
+    private final DefaultPianoboardModel pianoboardModel;
 
     @FXML
     public ChoiceBox<Note> cbRootNote;
@@ -63,8 +65,12 @@ public class FretboardControler implements Initializable {
     @FXML
     Fretboard fbFretboard;
 
+    @FXML
+    Pianoboard pbPianoboard;
+
     public FretboardControler() {
         fretboardModel = new DefaultFretboardModel();
+        pianoboardModel = new DefaultPianoboardModel();
     }
 
     @Override
@@ -93,7 +99,7 @@ public class FretboardControler implements Initializable {
 
         try {
             Serializer serializer = new Persister();
-            
+
             T list = serializer.read(cls, getRessource(path));
             cb.getItems().addAll(accessor.apply(list));
             cb.getSelectionModel().selectFirst();
@@ -123,7 +129,7 @@ public class FretboardControler implements Initializable {
     }
 
     public void setData() {
-        cbRootNote.getItems().addAll(FretboardModel.Note.values());
+        cbRootNote.getItems().addAll(Note.values());
         cbRootNote.getSelectionModel().selectFirst();
         loadSystemXMLTo(Tunes.class, cbTune, "tunes.xml", (t) -> t.getTunes());
         loadSystemXMLTo(Modes.class, cbMode, "modes.xml", (m) -> m.getModes());
@@ -131,6 +137,7 @@ public class FretboardControler implements Initializable {
         loadXMLTo(Modes.class, cbMode, "modes-user.xml", (m) -> m.getModes());
 
         fbFretboard.setModel(fretboardModel);
+        pbPianoboard.setModel(pianoboardModel);
 
         cbTune.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Tunes.Tune> observable, Tunes.Tune oldValue, Tunes.Tune newValue) -> {
             cbTune_onSelectedItemChanged(oldValue, newValue);
@@ -165,19 +172,27 @@ public class FretboardControler implements Initializable {
         changeScale();
     }
 
-    protected void btPng_onReleased(MouseEvent event) {
-        WritableImage snapshot = fbFretboard.takeSnapshop();
+    private void writeSnapshot(WritableImage snapshot, File file) {
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", file);
+            LOGGER.log(Level.INFO, String.format("File [%s] created successfully.", file.toString()));
+        } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+        }
+    }
 
+    protected void btPng_onReleased(MouseEvent event) {
         String fileName = String.format("%s %s - %s.png",
                 cbRootNote.getSelectionModel().selectedItemProperty().getValue().toString(),
                 cbMode.getSelectionModel().selectedItemProperty().getValue().toString(),
                 cbTune.getSelectionModel().selectedItemProperty().getValue().toString());
-        File file = new File(fileName);
+        writeSnapshot(fbFretboard.takeSnapshop(), new File(fileName));
 
-        try {
-            ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", file);
-        } catch (Exception s) {
-        }
+        fileName = String.format("%s %s - Piano.png",
+                cbRootNote.getSelectionModel().selectedItemProperty().getValue().toString(),
+                cbMode.getSelectionModel().selectedItemProperty().getValue().toString());
+        writeSnapshot(pbPianoboard.takeSnapshop(), new File(fileName));
+
     }
 
     private void changeTune() {
@@ -193,17 +208,20 @@ public class FretboardControler implements Initializable {
         Mode mode = cbMode.getSelectionModel().getSelectedItem();
 
         fretboardModel.clearNotes();
+        pianoboardModel.clearNotes();
 
         int intervalFromRoot = 0;
         for (int interval : mode.getIntervals()) {
             Note note = Note.valueOf((rootNote.interval() + intervalFromRoot) % 12);
             Color color = (intervalFromRoot == 0) ? Color.RED : (intervalFromRoot == 6) ? Color.BLUE : Color.BLACK;
             fretboardModel.addNote(note, color);
+            pianoboardModel.addNote(note, color);
 
             intervalFromRoot += interval;
         }
 
         fbFretboard.update();
+        pbPianoboard.update();
     }
 
 }
