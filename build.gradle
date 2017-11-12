@@ -36,7 +36,7 @@ dependencies {
 jar {
     from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     from('src/main/java') { include '**/*.xml' }
-    delete 'modes.xml', 'tunes.xml'
+    // delete 'modes.xml', 'tunes.xml'
     manifest {
         attributes(
             //'Class-Path': configurations.compile.collect { it.getName() }.join(' '),

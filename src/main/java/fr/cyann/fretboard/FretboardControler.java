@@ -17,7 +17,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Function;
@@ -83,6 +85,23 @@ public class FretboardControler implements Initializable {
         return file;
     }
 
+    private static InputStream getRessource(String path) {
+        return FretboardControler.class.getClassLoader().getResourceAsStream(path);
+    }
+
+    private static <T> void loadSystemXMLTo(Class<T> cls, ChoiceBox cb, String path, Function<T, List> accessor) {
+
+        try {
+            Serializer serializer = new Persister();
+            
+            T list = serializer.read(cls, getRessource(path));
+            cb.getItems().addAll(accessor.apply(list));
+            cb.getSelectionModel().selectFirst();
+        } catch (Exception ex) {
+            Logger.getLogger(FretboardControler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private static <T> void loadXMLTo(Class<T> cls, ChoiceBox cb, String path, Function<T, List> accessor) {
 
         try {
@@ -106,8 +125,10 @@ public class FretboardControler implements Initializable {
     public void setData() {
         cbRootNote.getItems().addAll(FretboardModel.Note.values());
         cbRootNote.getSelectionModel().selectFirst();
-        loadXMLTo(Tunes.class, cbTune, "tunes.xml", (t) -> t.getTunes());
-        loadXMLTo(Modes.class, cbMode, "modes.xml", (m) -> m.getModes());
+        loadSystemXMLTo(Tunes.class, cbTune, "tunes.xml", (t) -> t.getTunes());
+        loadSystemXMLTo(Modes.class, cbMode, "modes.xml", (m) -> m.getModes());
+        loadXMLTo(Tunes.class, cbTune, "tunes-user.xml", (t) -> t.getTunes());
+        loadXMLTo(Modes.class, cbMode, "modes-user.xml", (m) -> m.getModes());
 
         fbFretboard.setModel(fretboardModel);
 
@@ -164,7 +185,7 @@ public class FretboardControler implements Initializable {
 
         fretboardModel.setFretCount(tune.getFretcount());
         fretboardModel.getTunes().clear();
-        fretboardModel.getTunes().addAll(tune.getStrings());
+        fretboardModel.getTunes().addAll(Arrays.asList(tune.getNotes()));
     }
 
     private void changeScale() {

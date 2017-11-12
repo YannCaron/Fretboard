@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modes>
+   <modes>
+       <!-- you can add your owne modes.
+       Here is an example !
+       Just remove the html comment symbols. -->
+
+       <!--
+
+        <mode name="Ionian" intervals="2, 2, 1, 2, 2, 2, 1"/>
+        <mode name="Dorian" intervals="2, 1, 2, 2, 2, 1, 2"/>
+
+       -->
+   </modes>
+</modes>

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tunes>
    <tunes>
-      <tuneElement name="E Standard guitare" fretcount="24">
+       <!-- you can add hare your owne tunes.
+       Here is an example !
+       Just remove the html comment symbols. -->
+
+       <!--
+      <tune name="E Standard guitare" fretcount="24">
          <strings>
             <note>E</note>
             <note>A</note>
@@ -10,8 +15,8 @@
             <note>B</note>
             <note>E</note>
          </strings>
-      </tuneElement>
-      <tuneElement name="Drop D guitare" fretcount="24">
+      </tune>
+      <tune name="Drop D guitare" fretcount="24">
          <strings>
             <note>D</note>
             <note>A</note>
@@ -20,14 +25,7 @@
             <note>B</note>
             <note>E</note>
          </strings>
-      </tuneElement>
-      <tuneElement name="E Standard bass 4 strings" fretcount="24">
-         <strings>
-            <note>E</note>
-            <note>A</note>
-            <note>D</note>
-            <note>G</note>
-         </strings>
-      </tuneElement>
+      </tune>
+      -->
    </tunes>
 </tunes>

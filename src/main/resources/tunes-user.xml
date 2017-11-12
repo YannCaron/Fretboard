@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tunes>
+   <tunes>
+       <!-- you can add hare your owne tunes.
+       Here is an example !
+       Just remove the html comment symbols. -->
+
+       <!--
+      <tune name="Standard E guitare" fretcount="24" notes="E, A, D, G, A, E"/>
+      <tune name="Drop D guitare" fretcount="24" notes="E, A, D, G, A, E"/>
+      -->
+   </tunes>
+</tunes>

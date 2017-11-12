@@ -31,8 +31,8 @@ public class Tunes {
         @Attribute
         private int fretcount;
 
-        @ElementList(type = Note.class)
-        private ArrayList<Note> strings;
+        @Attribute
+        private Note[] notes;
 
         public String getName() {
             return name;
@@ -42,8 +42,8 @@ public class Tunes {
             return fretcount;
         }
 
-        public List<Note> getStrings() {
-            return strings;
+        public Note[] getNotes() {
+            return notes;
         }
 
         @Override
@@ -64,13 +64,7 @@ public class Tunes {
         Tunes tunes = new Tunes();
         Tune guitareEStandard = new Tune();
         guitareEStandard.name = "Guitare E Standard";
-        guitareEStandard.strings = new ArrayList<>();
-        guitareEStandard.strings.add(Note.E);
-        guitareEStandard.strings.add(Note.A);
-        guitareEStandard.strings.add(Note.D);
-        guitareEStandard.strings.add(Note.G);
-        guitareEStandard.strings.add(Note.B);
-        guitareEStandard.strings.add(Note.E);
+        guitareEStandard.notes = new Note[] {Note.E, Note.A, Note.D, Note.G, Note.A, Note.E};
         tunes.tunes = new ArrayList<>();
         tunes.tunes.add(guitareEStandard);
 
