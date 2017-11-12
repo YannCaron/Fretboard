@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modes>
    <modes>
-      <mode name="Ionian" intervals="true, false, true, false, true, true, false, true, false, true, false, true"/>
-      <mode name="Dorian" intervals="true, false, true, true, false, true, false, true, false, true, true, false"/>
-      <mode name="Phrygian" intervals="true, true, false, true, false, true, false, true, true, false, true, false"/>
-      <mode name="Lydian" intervals="true, false, true, false, true, false, true, true, false, true, false, true"/>
-      <mode name="Mixolidian" intervals="true, false, true, false, true, true, false, true, false, true, true, false"/>
-      <mode name="Aeolian" intervals="true, false, true, true, false, true, false, true, true, false, true, false"/>
-      <mode name="Locrian" intervals="true, true, false, true, false, true, true, false, true, false, true, false"/>
-      <mode name="Pentatonic major" intervals="true, false, true, false, true, false, false, true, false, true, false, false"/>
-      <mode name="Pentatonic minor" intervals="true, false, false, true, false, true, false, true, false, false, true, false"/>
-      <mode name="Blues major" intervals="true, false, true, true, true, false, false, true, false, true, false, false"/>
-      <mode name="Blues minor" intervals="true, false, false, true, false, true, true, true, false, false, true, false"/>
-      <mode name="Mixolidian blues" intervals="true, false, true, true, true, true, true, true, false, true, true, false"/>
-      <mode name="Dorian blues" intervals="true, false, true, true, false, true, true, true, false, true, true, false"/>
+      <mode name="Ionian" intervals="2, 2, 1, 2, 2, 2, 1"/>
+      <mode name="Dorian" intervals="2, 1, 2, 2, 2, 1, 2"/>
+      <mode name="Phrygian" intervals="1, 2, 2, 2, 1, 2, 2"/>
+      <mode name="Lydian" intervals="2, 2, 2, 1, 2, 2, 1"/>
+      <mode name="Mixolydian" intervals="2, 2, 1, 2, 2, 1, 2"/>
+      <mode name="Aeolian" intervals="2, 1, 2, 2, 1, 2, 2"/>
+      <mode name="Locrian" intervals="1, 2, 2, 1, 2, 2, 2"/>
+
+      <mode name="Aeolian Maj7" intervals="2, 1, 2, 2, 1, 3, 1"/>
+      <mode name="Locrian #6" intervals="1, 2, 2, 1, 3, 1, 2"/>
+      <mode name="Ionian #5" intervals="2, 2, 1, 3, 1, 2, 1"/>
+      <mode name="Dorian #4" intervals="2, 1, 3, 1, 2, 1, 2"/>
+      <mode name="Phrygian Dominant" intervals="1, 3, 1, 2, 1, 2, 2"/>
+      <mode name="Lydian #2" intervals="3, 1, 2, 1, 2, 2, 1"/>
+      <mode name="Superlocrian bb7" intervals="1, 2, 1, 2, 2, 1, 3"/>
+
+      <mode name="Pentatonic major" intervals="2, 2, 3, 2, 3"/>
+      <mode name="Pentatonic minor" intervals="3, 2, 2, 3, 2"/>
+      <mode name="Blues major" intervals="2, 1, 1, 3, 2, 3"/>
+      <mode name="Blues minor" intervals="3, 2, 1, 1, 3, 2"/>
+      <mode name="Mixolydian blues" intervals="2, 1, 1, 1, 1, 1, 2, 1, 2"/>
+      <mode name="Dorian blues" intervals="2, 1, 2, 1, 1, 2, 1, 2"/>
    </modes>
 </modes>

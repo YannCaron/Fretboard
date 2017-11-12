@@ -70,10 +70,10 @@ public class FretboardControler implements Initializable {
     }
 
     private static void copyRessourceToFile(String path) throws IOException {
-            InputStream fi = FretboardControler.class.getClassLoader().getResourceAsStream(path);
-            Files.copy(fi, Paths.get(path));
+        InputStream fi = FretboardControler.class.getClassLoader().getResourceAsStream(path);
+        Files.copy(fi, Paths.get(path));
     }
-    
+
     private static File getLazyRessource(String path) throws IOException {
         File file = new File(path);
 
@@ -94,7 +94,7 @@ public class FretboardControler implements Initializable {
 
         } catch (Exception ex) {
             Logger.getLogger(FretboardControler.class.getName()).log(Level.SEVERE, null, ex);
-            
+
             try {
                 copyRessourceToFile(path);
             } catch (IOException ex1) {
@@ -173,14 +173,13 @@ public class FretboardControler implements Initializable {
 
         fretboardModel.clearNotes();
 
-        int interval = 0;
-        for (boolean is : mode.getIntervals()) {
-            if (is) {
-                Note note = Note.valueOf((rootNote.interval() + interval) % 12);
-                Color color = (interval == 0) ? Color.RED : (interval == 6) ? Color.BLUE : Color.BLACK;
-                fretboardModel.addNote(note, color);
-            }
-            interval++;
+        int intervalFromRoot = 0;
+        for (int interval : mode.getIntervals()) {
+            Note note = Note.valueOf((rootNote.interval() + intervalFromRoot) % 12);
+            Color color = (intervalFromRoot == 0) ? Color.RED : (intervalFromRoot == 6) ? Color.BLUE : Color.BLACK;
+            fretboardModel.addNote(note, color);
+
+            intervalFromRoot += interval;
         }
 
         fbFretboard.update();

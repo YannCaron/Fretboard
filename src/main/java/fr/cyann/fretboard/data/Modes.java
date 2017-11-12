@@ -26,13 +26,13 @@ public class Modes {
         private String name;
 
         @Attribute
-        private boolean[] intervals;
+        private int[] intervals;
 
         public String getName() {
             return name;
         }
 
-        public boolean[] getIntervals() {
+        public int[] getIntervals() {
             return intervals;
         }
 
@@ -56,7 +56,7 @@ public class Modes {
         modes.modes = new ArrayList<>();
         Mode dorian = new Mode();
         dorian.name = "dorian";
-        dorian.intervals = new boolean[]{true, false, true, false, true, true, false, true, false, true, false, true};
+        dorian.intervals = new int[]{2, 2, 1, 2, 2, 2, 1};
         modes.modes.add(dorian);
 
         Serializer serializer = new Persister();
