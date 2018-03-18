@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -17,7 +18,7 @@ import javafx.stage.Stage;
  * @author cyann
  */
 public class Main extends Application {
-    
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/cyann/fretboard/FretboardView.fxml"));
@@ -25,9 +26,13 @@ public class Main extends Application {
         FretboardControler controler = loader.getController();
 
         primaryStage.setTitle("Fretboard");
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon-16.png")));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon-32.png")));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon-64.png")));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon-128.png")));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-        
+
         controler.setData();
     }
 
@@ -37,5 +42,5 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

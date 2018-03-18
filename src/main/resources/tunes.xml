@@ -1,8 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tunes>
-   <tunes>
-      <tune name="Standard E guitare" fretcount="24" notes="E, A, D, G, A, E"/>
-      <tune name="Drop D guitare" fretcount="24" notes="D, A, D, G, A, E"/>
-      <tune name="Standard E bass 4 str" fretcount="24" notes="E, A, D, G"/>
-   </tunes>
+    <tunes>
+        <tune name="Standard E guitar" fretcount="24" notes="E, A, D, G, B, E"/>
+        <tune name="Standard D guitar" fretcount="24" notes="D, G, C, F, A, D"/>
+        <tune name="Standard C guitar" fretcount="24" notes="C, F, Bb, Eb, G, C"/>
+        <tune name="Standard B guitar" fretcount="24" notes="B, E, A, D, Gb, B"/>
+        <tune name="Standard A guitar" fretcount="24" notes="A, D, G, C, E, A"/>
+        <tune name="All fourths guitar" fretcount="24" notes="E, A, D, G, C, F"/>
+        <tune name="All fifths guitar" fretcount="24" notes="C, G, D, A, E, B"/>
+        <tune name="Drop D guitar" fretcount="24" notes="D, A, D, G, B, E"/>
+        <tune name="Drop C guitar" fretcount="24" notes="C, G, C, F, A, D"/>
+        <tune name="Drop B guitar" fretcount="24" notes="B, Gb, B, E, Ab, Db"/>
+        <tune name="Double Drop D guitar" fretcount="24" notes="D, A, D, G, B, D"/>
+        <tune name="Double Drop C guitar" fretcount="24" notes="C, G, C, F, A, C"/>
+        <tune name="Double Drop B guitar" fretcount="24" notes="B, Gb, B, E, Ab, B"/>
+        <tune name="Open E guitar" fretcount="24" notes="E,B,E,Ab,B,E"/>
+        <tune name="Open D guitar" fretcount="24" notes="D,A,D,Gb,A,D"/>
+        <tune name="Open G guitar" fretcount="24" notes="D,G,D,G,B,D"/>
+        <tune name="Open A guitar" fretcount="24" notes="E,A,E,A,Db,E"/>
+        <tune name="High G guitar" fretcount="24" notes="G,B,D,G,B,D"/>
+        <tune name="High A guitar" fretcount="24" notes="A,Db,E,A,Db,E"/>
+        <tune name="Dad-Gad" fretcount="24" notes="D, A, D, G, A, D"/>
+        <tune name="Dad-Dad" fretcount="24" notes="D, A, D, D, A, D"/>
+        <tune name="Standard E bass 4 str" fretcount="24" notes="E, A, D, G"/>
+        <tune name="Standard D bass 4 str" fretcount="24" notes="D, G, C, F"/>
+        <tune name="Standard C bass 4 str" fretcount="24" notes="C, F, Bb, Eb"/>
+        <tune name="Standard B bass 4 str" fretcount="24" notes="B, E, A, D"/>
+        <tune name="Standard A bass 4 str" fretcount="24" notes="A, D, G, C"/>
+        <tune name="Drop D bass 4 str" fretcount="24" notes="D, A, D, G"/>
+        <tune name="Drop C bass 4 str" fretcount="24" notes="C, G, C, F"/>
+        <tune name="Drop B bass 4 str" fretcount="24" notes="B, Gb, B, E"/>
+    </tunes>
 </tunes>

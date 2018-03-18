@@ -29,11 +29,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.print.PrinterJob;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javax.imageio.ImageIO;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -213,7 +216,19 @@ public class FretboardControler implements Initializable {
         int intervalFromRoot = 0;
         for (int interval : mode.getIntervals()) {
             Note note = Note.valueOf((rootNote.interval() + intervalFromRoot) % 12);
-            Color color = (intervalFromRoot == 0) ? Color.RED : (intervalFromRoot == 6) ? Color.BLUE : Color.BLACK;
+            Color color = Color.BLACK;
+            if (intervalFromRoot == 0) {
+                color = Color.RED;
+            } else if (intervalFromRoot == 6) {
+                color = Color.BLUE;
+            } else if (intervalFromRoot == 3) {
+                color = Color.BLUEVIOLET;
+            } else if (intervalFromRoot == 4) {
+                color = Color.DARKVIOLET;
+            } else if (intervalFromRoot == 7) {
+                color = Color.BROWN;
+            }
+
             fretboardModel.addNote(note, color);
             pianoboardModel.addNote(note, color);
 
