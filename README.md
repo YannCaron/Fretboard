@@ -15,13 +15,13 @@ CyaNn
 Gluon Android integration tutorials
 
 fxport :
-[javafxports tutorial](http://docs.gluonhq.com/javafxports/)
+* [javafxports tutorial](http://docs.gluonhq.com/javafxports/)
 
-[gluon-samples](https://github.com/gluonhq/gluon-samples/blob/master/spring-motd/build.gradle)
-[gluon-connect](https://bitbucket.org/gluon-oss/gluon-connect/src)
+* [gluon-samples](https://github.com/gluonhq/gluon-samples/blob/master/spring-motd/build.gradle)
+* [gluon-connect](https://bitbucket.org/gluon-oss/gluon-connect/src)
 
 samples :
-[samples](https://bitbucket.org/javafxports/samples)
+* [samples](https://bitbucket.org/javafxports/samples)
 
 doc :
-[javadoc](http://docs.gluonhq.com/charm/javadoc/4.3.4/index.html?com/gluonhq/charm/glisten/visual/Theme.html)
+* [javadoc](http://docs.gluonhq.com/charm/javadoc/4.3.4/index.html?com/gluonhq/charm/glisten/visual/Theme.html)
